@@ -1,0 +1,79 @@
+#searchform { float:left; margin-left:20px; margin:9px 0px 0px; padding:0px; }
+#searchform fieldset { padding:0px; border:none; margin:0px; }
+#searchform input[type="text"] {
+    background:#e8e8e8;
+    border:none;
+    float:left;
+    padding:0px 10px 0px 15px;
+    margin:0px;
+    width:150px;
+    height:38px;
+    line-height:38px;
+    transition:all 300ms cubic-bezier(0.215, 0.61, 0.355, 1) 0s;
+    -moz-transition:all 300ms cubic-bezier(0.215, 0.61, 0.355, 1) 0s;
+    -webkit-transition:all 300ms cubic-bezier(0.215, 0.61, 0.355, 1) 0s;
+    -o-transition:all 300ms cubic-bezier(0.215, 0.61, 0.355, 1) 0s;
+    color:#585858;
+}
+#searchform input[type="password"] {
+    background:#e8e8e8;
+    border:none;
+    float:left;
+    padding:0px 10px 0px 15px;
+    margin:0px;
+    width:150px;
+    height:38px;
+    line-height:38px;
+    transition:all 300ms cubic-bezier(0.215, 0.61, 0.355, 1) 0s;
+    -moz-transition:all 300ms cubic-bezier(0.215, 0.61, 0.355, 1) 0s;
+    -webkit-transition:all 300ms cubic-bezier(0.215, 0.61, 0.355, 1) 0s;
+    -o-transition:all 300ms cubic-bezier(0.215, 0.61, 0.355, 1) 0s;
+    color:#585858;
+}
+#searchform input[type="text"]:hover, #searchform input[type="text"]:focus { width:200px; }
+#searchform input[type="password"]:hover, #searchform input[type="password"]:focus { width:200px; }
+#searchform input[type="submit"] { background:url(image/icon-search.png) center 11px no-repeat; cursor:pointer; margin:0px; padding:0px; width:37px; height:38px; line-height:38px; }
+
+input[type="submit"] { padding:4px 17px; color:#ffffff; color:#585858; text-transform:uppercase; border:none; font-size:20px; background:url(image/gradient.png) bottom repeat-x; cursor:pointer; margin-top:10px; float:left; overflow:visible; transition: all .3s linear; -moz-transition: all .3s linear; -o-transition: all .3s linear; -webkit-transition: all .3s linear; }
+
+#searchform input[type="submit"]:hover { background-color:#333232; }
+.style_1 #searchform input[type='submit'] { background-color:#25ade4; }
+.style_1{ margin:10px; display:block; clear:both }
+
+body{
+    background-color: #ffffff;
+    font-family: "Georgia";
+}
+section{
+    width: 100%;
+    margin: 5% auto;
+}
+.login{
+    background-color: #FFF;
+
+    text-align: center;
+}
+.title{
+    font-size: 50px;
+    color: #333232;
+    text-align: center;
+    margin: 10px;
+}
+input{
+    height: 24px;
+    width: 100px;
+    border: solid 1px #699;
+    border-radius: 12px;
+    text-indent: 12px;
+    margin: 10px 0;
+}
+button{
+    float: right;
+    height: 30px;
+    width: 60px;
+    border: solid 1px #699;
+    border-radius: 12px;
+}
+.red{
+    color:red;
+}

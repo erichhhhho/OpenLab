@@ -1,0 +1,13 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="openLab:war exploded">
+    <output-path>$PROJECT_DIR$/out/artifacts/openLab_war_exploded</output-path>
+    <root id="root">
+      <element id="javaee-facet-resources" facet="openLab/web/Web" />
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="openLab" />
+        </element>
+      </element>
+    </root>
+  </artifact>
+</component>
