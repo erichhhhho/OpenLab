@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.sql.Statement;
 import com.lab.config.DBConfig;
+import com.lab.config.User;
 import com.lab.security.Encrypter;
 
 
@@ -40,7 +41,7 @@ public class LoginServlet extends HttpServlet {
         Object o = session.getAttribute("userid");
 
         if(o!=null&&o!=""){
-            response.sendRedirect("Menu.html");
+            response.sendRedirect("Menu.jsp");
             System.out.print(o);
         }
         else
@@ -76,16 +77,21 @@ public class LoginServlet extends HttpServlet {
                 if (rs!=null && rs.next()) {
                     int id = rs.getInt("id");
                     String password1 = rs.getString("password");
+                    String privilege = rs.getString("privilege");
                     password = Encrypter.md5Encrypt(password);
+
+                    User user=new User(id,name,password,privilege);
                     if (password.equals(password1)) {
-                        request.getSession().setAttribute("userid", id);
-                        request.getSession().setAttribute("name", name);
+
+                        request.getSession().setAttribute("user", user);
+
                         // 登录成功
                         Cookie cookie = new Cookie("userid", id+"");
                         Cookie cookie2 = new Cookie("name", name);
                         response.addCookie(cookie);
                         response.addCookie(cookie2);
-                        response.sendRedirect("Menu.html");
+                        response.sendRedirect("Menu.jsp");
+                        return;
                     }else {
                         request.setAttribute("msg", "wrong password！");
                         request.getRequestDispatcher("/").forward(request, response);

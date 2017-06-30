@@ -23,16 +23,16 @@
             <div class="style_1">
                 <form method="post" id="searchform" action="">
                     <fieldset>
-                        <input id="s" name="name" type="text" value="Enter Name" class="text_input" onblur="if(this.value==''){this.value='Enter Name';}" onfocus="if(this.value =='Enter Name') {this.value=''; }" />
+                        <input id="s1" name="name" type="text" value="Enter Name" class="text_input" onblur="if(this.value==''){this.value='Enter Name';}" onfocus="if(this.value =='Enter Name') {this.value=''; }" />
                     </fieldset>
                     <fieldset>
-                        <input id="s" name="passwd1" type="password" value="Enter password" class="password_input" onblur="if(this.value=='Enter password'){this.value='Enter password';}" onfocus="if(this.value =='Enter password') {this.value=''; }" />
+                        <input id="s2" name="passwd1" type="password" value="" class="password_input" onblur="if(this.value=='Enter password'){this.value='Enter password';}" onfocus="if(this.value =='Enter password') {this.value=''; }" />
                     </fieldset>
                     <fieldset>
-                        <input id="s" name="passwd2" type="password" value="Enter password" class="password_input" onblur="if(this.value=='Enter password'){this.value='Enter password';}" onfocus="if(this.value =='Enter password') {this.value=''; }" />
+                        <input id="s3" name="passwd2" type="password" value="" class="password_input" onblur="if(this.value=='Enter password'){this.value='Enter password';}" onfocus="if(this.value =='Enter password') {this.value=''; }" />
                     </fieldset>
                     <fieldset>
-                        <input id="s" name="vcode" type="text" value="Enter vcode" class="text_input" onblur="if(this.value==''){this.value='Enter vcode';}" onfocus="if(this.value =='Enter vcode') {this.value=''; }" />
+                        <input id="s4" name="vcode" type="text" value="Enter vcode" class="text_input" onblur="if(this.value==''){this.value='Enter vcode';}" onfocus="if(this.value =='Enter vcode') {this.value=''; }" />
                     </fieldset>
                     <table>
                         <tr>
