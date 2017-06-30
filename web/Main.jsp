@@ -12,7 +12,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>方正开放式实验室管理平台</title>
-    <link rel="stylesheet" href="style0.css" type="text/css" />
+    <link rel="stylesheet" href="/css/style0.css" type="text/css"/>
     <script type="text/javascript">
         window.onload=function(){
             function $(id){return document.getElementById(id)}
@@ -188,7 +188,7 @@
                     <tr>
                         <td>时间段：</td>
                         <td>
-                            <input onclick="hide('HMF-1')" type="text" value="请选择时间段" id="am" class="am" name="time"/>
+                            <input onclick="hide('HMF   -1')" type="text" value="请选择时间段" id="am" class="am" name="time"/>
                             <div id="HMF-1" style="display: none " class="bm">
                                 <span id="a1" onclick="pick('第一节课')" onMouseOver="bgcolor('a1')" onMouseOut="nocolor('a1')" class="cur">第一节课</span>
                                 <span id="a2" onclick="pick('第二节课')" onMouseOver="bgcolor('a2')" onMouseOut="nocolor('a2')" class="cur">第二节课</span>
@@ -285,5 +285,6 @@
             </div>
         </div>
     </div>
+</div>
 </body>
 </html>

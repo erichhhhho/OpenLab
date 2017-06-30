@@ -13,21 +13,14 @@ import java.awt.image.*;
 
 import javax.imageio.*;
 
-@WebServlet("/com.lab.captch.GetCaptcha")
+@WebServlet(name="GetCaptcha", urlPatterns="/GetCaptcha")
 public class GetCaptcha extends HttpServlet {
     private static final long serialVersionUID = 1L;
-
-    public GetCaptcha() {
-        super();
-    }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        response.setContentType("image/jpeg");
-        response.setHeader("Pragma", "No-cache");
-        response.setHeader("Cache-Control", "no-cache");
-        response.setDateHeader("Expires", 0);
+
         HttpSession session = request.getSession();
         int width = 75, height = 25;
         BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
@@ -57,7 +50,12 @@ public class GetCaptcha extends HttpServlet {
         session.setAttribute("vcode", sRand);
 
         g.dispose();
-        ImageIO.write(image, "JPEG", response.getOutputStream());
+
+        response.setContentType("image/jpeg");
+        response.setHeader("Pragma", "No-cache");
+        response.setHeader("Cache-Control", "no-cache");
+        response.setDateHeader("Expires", 0);
+        ImageIO.write(image, "JPG", response.getOutputStream());
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)

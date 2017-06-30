@@ -10,7 +10,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Welcome to the openLab</title>
-    <link rel="stylesheet" href="style.css" type="text/css" />
+    <link rel="stylesheet" href="css/style.css" type="text/css" />
 </head>
 <body>
 <section>
@@ -21,7 +21,7 @@
         <div style="margin:30px auto; width:300px; height:300px; background:#ffffff;">
             <h2 style="text-align:center; margin-top:20px;"></h2>
             <div class="style_1">
-                <form method="get" id="searchform" action="">
+                <form method="post" id="searchform" action="">
                     <fieldset>
                         <input id="s" name="name" type="text" value="Enter Name" class="text_input" onblur="if(this.value==''){this.value='Enter Name';}" onfocus="if(this.value =='Enter Name') {this.value=''; }" />
                     </fieldset>
