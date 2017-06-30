@@ -1,11 +1,12 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Welcome to the openLab</title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/jquery-labelauty.css">
-    <script src="css/jquery-3.2.1.js"></script>
-    <script src="css/bootstrap.min.js"></script>
+    <script src="js/jquery-3.2.1.js"></script>
+    <script src="js/bootstrap.min.js"></script>
     <style>
       *{margin:0px; padding:0px;}
       body{font-family: Arial, Helvetica, sans-serif;font-size: 12px;}
@@ -40,6 +41,9 @@
   </script>
   </head>
   <body style="background-image: url(image/nature1.jpg)">
+  Welcome,${user.nickname},privilege:${user.privilege}
+
+  <a href="LogoutServlet">退出登录</a>
     <div class="jumbotron page-header">
       <h1>Open Laboratory<small>At your service</small></h1>
       <nav class="navbar navbar-default navbar-fixed-bottom">
@@ -116,9 +120,12 @@
             </table>
         </form>
       </div>
+
       <div class="tab-pane fade" id="mangement">
 
+
       </div>
+
       <div class="tab-pane fade" id="search" style="font-color:#ffffff">
         <nav class="navbar navbar-default">
           <div class="container">

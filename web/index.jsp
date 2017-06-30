@@ -12,25 +12,6 @@
   <title>Welcome to the openLab</title>
   <link rel="stylesheet" href="css/style.css" type="text/css" />
   <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
-  <script language="javascript">
-      function check(){
-          if(document.getElementById("form1").name.value=="")
-          {
-              alert("请输入用户名");
-              document.getElementById("form1").name.focus();
-              return false;
-          }
-          if(document.getElementById("form1").passwd.value=="")
-          {
-              alert("请输入密码");
-              document.getElementById("form1").passwd.focus();
-              return false;
-          }
-      }
-
-
-  </script>
-
 </head>
 <body>
 <div class="jumbotron" style="background-image:url(/image/Lab/Chemistry-1920x960.jpg); background-size:100%">
@@ -58,8 +39,8 @@
   </div>
 </div>
 
-<div class="alert alert-warning alert-dismissible .fade .in" role="alert">
-  <button type="button" class="close" data-dismiss="alert" aria-label="Close" ><span aria-hidden="true">&times;</span></button>
+<div class="alert alert-warning alert-dismissible .fade .in" role="alert" id="alertDiv">
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
   <strong>Warning!</strong>
   <%
     String str="Please Input the information correctly";
@@ -198,7 +179,23 @@
   </div>
 </section>
 
+<script src="js/jquery-3.2.1.js"></script>
+<script src="js/bootstrap.min.js"></script>
 <script type="text/javascript">
+    function check(){
+        if(document.getElementById("form1").name.value=="")
+        {
+            alert("请输入用户名");
+            document.getElementById("form1").name.focus();
+            return false;
+        }
+        if(document.getElementById("form1").passwd.value=="")
+        {
+            alert("请输入密码");
+            document.getElementById("form1").passwd.focus();
+            return false;
+        }
+    }
     function change(img) {
         img.src=img.src+"?"+new Date().getTime();
     }
