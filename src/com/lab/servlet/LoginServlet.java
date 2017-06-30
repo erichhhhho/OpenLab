@@ -33,6 +33,9 @@ public class LoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         // 用户登录检查/////////////
+        response.setContentType("text/html;charset=UTF-8");
+        request.setCharacterEncoding("UTF-8");
+
         HttpSession session = request.getSession();
         Object o = session.getAttribute("userid");
 
@@ -46,6 +49,10 @@ public class LoginServlet extends HttpServlet {
             String password = request.getParameter("passwd");
             String vocode = request.getParameter("vcode");
 
+            if (name=="Enter Name") {
+                request.setAttribute("msg", "用户名不能为空！");
+                request.getRequestDispatcher("/register.jsp").forward(request, response);
+            }
             // 验证码
             String vocode1 = (String)request.getSession().getAttribute("vcode");
             if (!vocode.equals(vocode1)) {

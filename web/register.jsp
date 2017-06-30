@@ -40,6 +40,24 @@
     </div>
 </div>
 
+<div class="alert alert-warning alert-dismissible .fade .in" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close" ><span aria-hidden="true">&times;</span></button>
+    <strong>Warning!</strong>
+    <%
+        String str="Please Input the information correctly";
+        String temp= (String) request.getAttribute("msg");
+        if(temp==""||temp==null){
+    %>
+    <%=str%>
+    <%
+    }else{
+    %>
+    ${msg}
+    <%
+        }
+    %>
+</div>
+
 <section>
     <div class="title">
         Register
@@ -136,12 +154,12 @@
                             <td>
                             <div class="row" >
                                 <div class="col-md-1"></div>
-                                <div class="col-md-4">
-                                    <button type="submit" class="btn btn-primary" onsubmit="check()">
-                                        Login
+                                <div class="col-md-3">
+                                    <button type="submit" class="btn btn-primary" onsubmit="return check()">
+                                        Sign&nbsp;In
                                     </button>
                                 </div>
-                                <div class="col-md-1"></div>
+                                <div class="col-md-2"></div>
                                 <div class="col-md-4">
                                     <button type="reset" class="btn btn-primary">
                                         Reset
