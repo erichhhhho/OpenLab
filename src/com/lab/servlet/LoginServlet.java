@@ -21,13 +21,10 @@ import com.lab.config.DBConfig;
 import com.lab.security.Encrypter;
 
 
-@WebServlet(name="LoginServlet", urlPatterns="/LoginServlet")
+@WebServlet(name="LoginServlet", value="/LoginServlet")
 public class LoginServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
-    public LoginServlet() {
-        super();
-    }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doPost(request, response);
@@ -39,8 +36,8 @@ public class LoginServlet extends HttpServlet {
         HttpSession session = request.getSession();
         Object o = session.getAttribute("userid");
 
-        if(o!=null){
-            response.sendRedirect("Main.jsp");
+        if(o!=null&&o!=""){
+            response.sendRedirect("Menu.html");
             System.out.print(o);
         }
         else
@@ -63,15 +60,15 @@ public class LoginServlet extends HttpServlet {
             ResultSet rs = null ;
             try {
                 statement = conn.createStatement();
-                String sql = "select * from user where usrname='"+name+"'";
+                String sql = "select * from user where nickname='"+name+"'";
                 rs = statement.executeQuery(sql);
             } catch (SQLException e) {
                 e.printStackTrace();
             }
             try {
                 if (rs!=null && rs.next()) {
-                    int id = rs.getInt("usrid");
-                    String password1 = rs.getString("passwd");
+                    int id = rs.getInt("id");
+                    String password1 = rs.getString("password");
                     password = Encrypter.md5Encrypt(password);
                     if (password.equals(password1)) {
                         request.getSession().setAttribute("userid", id);
@@ -81,7 +78,7 @@ public class LoginServlet extends HttpServlet {
                         Cookie cookie2 = new Cookie("name", name);
                         response.addCookie(cookie);
                         response.addCookie(cookie2);
-                        response.sendRedirect("Main.jsp");
+                        response.sendRedirect("Menu.html");
                     }else {
                         request.setAttribute("msg", "wrong password！");
                         request.getRequestDispatcher("/").forward(request, response);

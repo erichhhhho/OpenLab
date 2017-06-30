@@ -10,9 +10,36 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Welcome to the openLab</title>
-    <link rel="stylesheet" href="style.css" type="text/css" />
+    <link rel="stylesheet" href="css/style.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 </head>
 <body>
+
+<div class="jumbotron" style="background-image:url(/image/Lab/Chemistry-1920x960.jpg); background-size:100%">
+    <div class="row" >
+        <div class="form-group" >
+            <div class="col-md-4"></div>
+            <div class="col-md-4">
+                <h1 align="center">This is OpenLab,</h1>
+            </div>
+            <div class="col-md-4">
+
+            </div>
+        </div>
+    </div>
+    <div class="row" >
+        <div class="form-group" >
+            <div class="col-md-4"></div>
+            <div class="col-md-4">
+                <p align="right">Please Sign In first</p>
+            </div>
+            <div class="col-md-4">
+                <p align="right"><a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+            </div>
+        </div>
+    </div>
+</div>
+
 <section>
     <div class="title">
         Register
@@ -21,34 +48,68 @@
         <div style="margin:30px auto; width:300px; height:300px; background:#ffffff;">
             <h2 style="text-align:center; margin-top:20px;"></h2>
             <div class="style_1">
-                <form method="get" id="searchform" action="">
+                <form id="searchform" action="RegisterServlet" method="post">
                     <table>
                         <tr>
-                            <td>name:</td>
+                            <td>
+                                <div>
+                                <label for="s1" class="control-label" style="font-size: 15px">Name</label>
+                                <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                            </div>
+                            </td>
                             <td>
                             <fieldset>
-                                <input id="s" name="name" type="text" value="Enter Name" class="text_input" onblur="if(this.value==''){this.value='Enter Name';}" onfocus="if(this.value =='Enter Name') {this.value=''; }" />
+                                <input id="s1" name="name" type="text" value="Enter Name" class="text_input" onblur="if(this.value==''){this.value='Enter Name';}" onfocus="if(this.value =='Enter Name') {this.value=''; }" />
                             </fieldset>
                             </td>
                         </tr>
+
                         <tr>
-                            <td>password</td>
+                            <td>&nbsp;</td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                            <div>
+                                <label for="s2" class="control-label" style="font-size: 15px">Password</label>
+                                <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
+                            </div>
+                            </td>
                             <td>
                             <fieldset>
-                                <input id="s" name="passwd1" type="password" value="Enter password" class="password_input" onblur="if(this.value=='Enter password'){this.value='Enter password';}" onfocus="if(this.value =='Enter password') {this.value=''; }" />
+                                <input id="s2" name="passwd1" type="password" value="" class="password_input" onblur="if(this.value=='Enter password'){this.value='Enter password';}" onfocus="if(this.value =='Enter password') {this.value=''; }" />
                             </fieldset>
                             </td>
                         </tr>
+
+                        <tr>
+                            <td>&nbsp;</td>
+                        </tr>
+
                             <tr>
-                        <td>password again:</td>
+                        <td>
+                        <div>
+                            <label for="s2" class="control-label" style="font-size: 15px">Password Once</label>
+
+                        </div>
+                        </td>
                         <td>
                             <fieldset>
-                                <input id="s" name="passwd2" type="password" value="Enter password" class="password_input" onblur="if(this.value=='Enter password'){this.value='Enter password';}" onfocus="if(this.value =='Enter password') {this.value=''; }" />
+                                <input id="s3" name="passwd2" type="password" value="" class="password_input" onblur="if(this.value=='Enter password'){this.value='Enter password';}" onfocus="if(this.value =='Enter password') {this.value=''; }" />
                             </fieldset>
                         </td>
                     </tr>
+
                         <tr>
-                        <td>vcode:</td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                        <td>
+                        <div>
+                            <label for="s3" class="control-label" style="font-size: 15px">Code</label>
+                            <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+                        </div>
+                        </td>
                         <td>
                             <fieldset>
                                 <input id="s" name="vcode" type="text" value="Enter vcode" class="text_input" onblur="if(this.value==''){this.value='Enter vcode';}" onfocus="if(this.value =='Enter vcode') {this.value=''; }" />
@@ -56,16 +117,39 @@
                         </td>
                         </tr>
                         <tr>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
                             <td>
                             <fieldset>
-                                <img alt="Refresh" id="checkImg" src="GetCaptcha" onClick="document.getElementById('checkImg').src='com.lab.captch.GetCaptcha?temp='+ (new Date().getTime().toString(36)); return false">
+                                <img alt="Refresh" id="checkImg" src="GetCaptcha" onClick="change(this)" style="cursor: hand">
+
                             </fieldset>
                             </td>
-                        <td>
-                    <fieldset>
-                        <button>Register</button>
-                    </fieldset>
-                        </td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td>
+                            <div class="row" >
+                                <div class="col-md-1"></div>
+                                <div class="col-md-4">
+                                    <button type="submit" class="btn btn-primary" onsubmit="check()">
+                                        Login
+                                    </button>
+                                </div>
+                                <div class="col-md-1"></div>
+                                <div class="col-md-4">
+                                    <button type="reset" class="btn btn-primary">
+                                        Reset
+                                    </button>
+
+                                </div>
+                             </div>
+                             </td>
                         </tr>
                     </table>
                 </form>
@@ -80,5 +164,10 @@
         </td>
     </tr>
 </div>
+<script type="text/javascript">
+    function change(img) {
+        img.src=img.src+"?"+new Date().getTime();
+    }
+</script>
 </body>
 </html>
