@@ -18,16 +18,14 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.sql.Statement;
 import com.lab.config.DBConfig;
+import com.lab.config.User;
 import com.lab.security.Encrypter;
 
 
-@WebServlet(name="LoginServlet", urlPatterns="/LoginServlet")
+@WebServlet(name="LoginServlet", value="/LoginServlet")
 public class LoginServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
-    public LoginServlet() {
-        super();
-    }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doPost(request, response);
@@ -36,11 +34,14 @@ public class LoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         // 用户登录检查/////////////
+        response.setContentType("text/html;charset=UTF-8");
+        request.setCharacterEncoding("UTF-8");
+
         HttpSession session = request.getSession();
         Object o = session.getAttribute("userid");
 
-        if(o!=null){
-            response.sendRedirect("Main.jsp");
+        if(o!=null&&o!=""){
+            response.sendRedirect("Menu.jsp");
             System.out.print(o);
         }
         else
@@ -49,6 +50,10 @@ public class LoginServlet extends HttpServlet {
             String password = request.getParameter("passwd");
             String vocode = request.getParameter("vcode");
 
+            if (name=="Enter Name") {
+                request.setAttribute("msg", "用户名不能为空！");
+                request.getRequestDispatcher("/register.jsp").forward(request, response);
+            }
             // 验证码
             String vocode1 = (String)request.getSession().getAttribute("vcode");
             if (!vocode.equals(vocode1)) {
@@ -63,25 +68,30 @@ public class LoginServlet extends HttpServlet {
             ResultSet rs = null ;
             try {
                 statement = conn.createStatement();
-                String sql = "select * from user where usrname='"+name+"'";
+                String sql = "select * from user where nickname='"+name+"'";
                 rs = statement.executeQuery(sql);
             } catch (SQLException e) {
                 e.printStackTrace();
             }
             try {
                 if (rs!=null && rs.next()) {
-                    int id = rs.getInt("usrid");
-                    String password1 = rs.getString("passwd");
+                    int id = rs.getInt("id");
+                    String password1 = rs.getString("password");
+                    String privilege = rs.getString("privilege");
                     password = Encrypter.md5Encrypt(password);
+
+                    User user=new User(id,name,password,privilege);
                     if (password.equals(password1)) {
-                        request.getSession().setAttribute("userid", id);
-                        request.getSession().setAttribute("name", name);
+
+                        request.getSession().setAttribute("user", user);
+
                         // 登录成功
                         Cookie cookie = new Cookie("userid", id+"");
                         Cookie cookie2 = new Cookie("name", name);
                         response.addCookie(cookie);
                         response.addCookie(cookie2);
-                        response.sendRedirect("Main.jsp");
+                        response.sendRedirect("Menu.jsp");
+                        return;
                     }else {
                         request.setAttribute("msg", "wrong password！");
                         request.getRequestDispatcher("/").forward(request, response);

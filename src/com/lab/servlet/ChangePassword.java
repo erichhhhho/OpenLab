@@ -14,13 +14,9 @@ import javax.servlet.http.HttpServletResponse;
 import com.lab.config.DBConfig;
 import com.lab.security.Encrypter;
 
-@WebServlet(name="com.lab.servlet.ChangePassword", urlPatterns="/ChangePassword")
+@WebServlet(name="ChangePassword", urlPatterns="/ChangePassword")
 public class ChangePassword extends HttpServlet {
     private static final long serialVersionUID = 1L;
-
-    public ChangePassword() {
-        super();
-    }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doPost(request, response);
@@ -64,7 +60,7 @@ public class ChangePassword extends HttpServlet {
                 request.getRequestDispatcher("/changepassword.jsp").forward(request, response);
             } else {
                 request.setAttribute("msg", "reset successfully, you can login new");
-                request.getRequestDispatcher("/").forward(request, response);
+                request.getRequestDispatcher("/index.jsp").forward(request, response);
             }
         } catch (SQLException e) {
             e.printStackTrace();
