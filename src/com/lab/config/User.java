@@ -21,6 +21,9 @@ public class User {
         this.privilege = privilege;
     }
 
+    public User() {
+    }
+
     public int getId() {
         return id;
     }

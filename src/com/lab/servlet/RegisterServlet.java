@@ -50,7 +50,12 @@ public class RegisterServlet extends HttpServlet {
         }
 
         // 检查是否有重名的用户
-        Connection conn = DBConfig.getConnection();
+        Connection conn = null;
+        try {
+            conn = DBConfig.getConnection();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         PreparedStatement statement = null;
         PreparedStatement statement1 = null;
 

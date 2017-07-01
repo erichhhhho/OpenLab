@@ -46,7 +46,12 @@ public class ChangePassword extends HttpServlet {
             request.getRequestDispatcher("/changepassword.jsp").forward(request, response);
         }
 
-        Connection conn = DBConfig.getConnection();
+        Connection conn = null;
+        try {
+            conn = DBConfig.getConnection();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         PreparedStatement statement = null;
         try {
             String sql = "update user set password=? where nickname=? and password=?";

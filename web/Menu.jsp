@@ -51,7 +51,7 @@
           <ul id="myTab" class="nav nav-tabs">
           	<li class="active"><a href="#home" data-toggle="tab">Home</a></li>
           	<li><a href="#appointment" data-toggle="tab">Appointment</a></li>
-            <li><a href="#managment" data-toggle="tab">Management</a></li>
+            <li><a href="#management" data-toggle="tab">Management</a></li>
             <li><a href="#search" data-toggle="tab">Search</a></li>
           </ul>
         </div>
@@ -62,10 +62,11 @@
         &nbsp<p style="color:#ffffff; font-size:35px">Hello! Welcome to OpenLab!</p>
       </div>
       <div class="tab-pane fade" id="appointment">
-        <form>
+          <div class="panel panel-default">
+        <form action="AddAppointmentServlet" method="post">
             <table  style="border-collapse:separate;border-spacing:20px 20px;">
                 <tr>
-                    <td style="color:#ffffff">日期：</td>
+                    <td style="color:black">日期：</td>
                     <td>
                         <input type="date" name="reservation_date" />
                     </td>
@@ -101,9 +102,9 @@
                             });
                         </script>
                     </td>
-                    <td style="color:#ffffff">时间段：</td>
+                    <td style="color:black">时间段：</td>
                     <td>
-                        <input onclick="hide('HMF-1')" type="text" value="请选择时间段" id="am" class="am" name="time"/>
+                        <input valign="left" onclick="hide('HMF-1')" type="text" value="请选择时间段" id="am" class="am" name="time"/>
                         <div id="HMF-1" style="display: none " class="bm">
                             <span id="a1" onclick="pick('第一节课')" onMouseOver="bgcolor('a1')" onMouseOut="nocolor('a1')" class="cur">第一节课</span>
                             <span id="a2" onclick="pick('第二节课')" onMouseOver="bgcolor('a2')" onMouseOut="nocolor('a2')" class="cur">第二节课</span>
@@ -119,12 +120,27 @@
                 </tr>
             </table>
         </form>
+          </div>
       </div>
 
-      <div class="tab-pane fade" id="mangement">
+        <div class="tab-pane fade" id="management">
 
-
-      </div>
+            <div class="panel panel-default">
+                <div class="panel-heading"><h3>预约记录</h3></div>
+                <div class="panel-body">
+                    <table class="table">
+                        <th>日期</th><th>时间段</th><th>实验室</th><th>操作</th>
+                        <tr><td>2017-7-2</td><td>第一节课</td><td>主校区-109</td><td><input type="checkbox" name="id0" data-labelauty="删除"></td></tr>
+                        <tr><td>2017-7-2</td><td>第一节课</td><td>主校区-109</td><td><input type="checkbox" name="id0" data-labelauty="删除"></td></tr>
+                        <tr><td>2017-7-2</td><td>第一节课</td><td>主校区-109</td><td><input type="checkbox" name="id0" data-labelauty="删除"></td></tr>
+                        <tr><td>2017-7-2</td><td>第一节课</td><td>主校区-109</td><td><input type="checkbox" name="id0" data-labelauty="删除"></td></tr>
+                        <tr><td>2017-7-2</td><td>第一节课</td><td>主校区-109</td><td><input type="checkbox" name="id0" data-labelauty="删除"></td></tr>
+                    </table>
+                    <hr>
+                    <br/>
+                </div>
+            </div>
+        </div>
 
       <div class="tab-pane fade" id="search" style="font-color:#ffffff">
         <nav class="navbar navbar-default">

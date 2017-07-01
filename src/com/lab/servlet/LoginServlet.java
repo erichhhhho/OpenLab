@@ -50,7 +50,7 @@ public class LoginServlet extends HttpServlet {
             String password = request.getParameter("passwd");
             String vocode = request.getParameter("vcode");
 
-            if (name=="Enter Name") {
+            if (name.equals("Enter Name")) {
                 request.setAttribute("msg", "用户名不能为空！");
                 request.getRequestDispatcher("/register.jsp").forward(request, response);
             }
@@ -63,7 +63,12 @@ public class LoginServlet extends HttpServlet {
             request.getSession().setAttribute("vcode","");
 
             //
-            Connection conn = DBConfig.getConnection();
+            Connection conn = null;
+            try {
+                conn = DBConfig.getConnection();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
             Statement statement = null;
             ResultSet rs = null ;
             try {

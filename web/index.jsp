@@ -11,7 +11,7 @@
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <title>Welcome to the openLab</title>
   <link rel="stylesheet" href="css/style.css" type="text/css" />
-  <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"/>
 </head>
 <body>
 <div class="jumbotron" style="background-image:url(/image/Lab/Chemistry-1920x960.jpg); background-size:100%">

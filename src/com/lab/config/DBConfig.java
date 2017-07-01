@@ -1,23 +1,51 @@
 package com.lab.config;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
+import java.io.IOException;
+import java.sql.*;
+import java.util.Properties;
 
 public class DBConfig {
-    private static final String url = "jdbc:mysql://localhost:3306/openlab?characterEncoding=UTF-8";
-    private static final String user = "root";
-    private static final String password = "root";
+    private static Properties config=new Properties();
 
-    public static Connection getConnection() {
-        Connection conn = null;
+    static {
+
         try {
-            Class.forName("com.mysql.jdbc.Driver");
-            System.out.println("Connecting to database...");
-
-            conn = DriverManager.getConnection(url, user, password);
+            config.load(DBConfig.class.getClassLoader().getResourceAsStream("db.properties"));
+            Class.forName(config.getProperty("driver"));
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new ExceptionInInitializerError(e);
         }
-        return conn;
+    }
+
+    public static Connection getConnection() throws SQLException {
+        return DriverManager.getConnection(config.getProperty("url"),config.getProperty("user"),config.getProperty("password"));
+    }
+    public static void release(Connection conn, Statement st, ResultSet rs){
+
+        if(rs!=null){
+            try{
+                rs.close();   //throw new
+            }catch (Exception e) {
+                e.printStackTrace();
+            }
+            rs = null;
+        }
+        if(st!=null){
+            try{
+                st.close();
+            }catch (Exception e) {
+                e.printStackTrace();
+            }
+            st = null;
+        }
+        if(conn!=null){
+            try{
+                conn.close();
+            }catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+
     }
 }
