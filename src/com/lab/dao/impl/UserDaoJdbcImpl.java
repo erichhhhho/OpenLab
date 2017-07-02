@@ -10,17 +10,18 @@ package com.lab.dao.impl;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Statement;
 import java.lang.*;
 
-import com.lab.dao.UserDao;
 import com.lab.config.User;
 import com.lab.exception.*;
 
 import com.lab.config.DBConfig;
-import java.util.Date;
 
-public class UserDaoJdbcImpl {
+import java.util.ArrayList;
+import java.util.List;
+
+public class UserDaoJdbcImpl implements com.lab.dao.UserDao {
+    @Override
     public void add(User user) {
         Connection conn = null;
         PreparedStatement st = null;
@@ -89,6 +90,7 @@ public class UserDaoJdbcImpl {
 	sql----编译---数据库
 	*/
 
+    @Override
     public User find(String nickname, String password) {
 
         Connection conn = null;
@@ -121,7 +123,36 @@ public class UserDaoJdbcImpl {
         }
     }
 
-    public boolean find(String nickname) {
+
+    @Override
+    public List<User> getAll(){
+        Connection conn = null;
+        PreparedStatement st = null;
+        ResultSet rs = null;
+        try{
+            conn = DBConfig.getConnection();
+            String sql = "select * from user ";
+            st = conn.prepareStatement(sql);
+            rs = st.executeQuery();
+            List list = new ArrayList();
+            while(rs.next()){
+                User c = new User();
+                c.setId(rs.getInt("id"));
+                c.setNickname(rs.getString("nickname"));
+                c.setPrivilege(rs.getString("privilege"));
+                c.setPassword(rs.getString("password"));
+
+                list.add(c);
+            }
+            return list;
+        }catch (Exception e) {
+            throw new DaoException(e);
+        }finally{
+            DBConfig.release(conn, st, rs);
+        }
+    }
+    @Override
+    public boolean findbyNickname(String nickname) {
         Connection conn = null;
         PreparedStatement st = null;
         ResultSet rs = null;
@@ -136,6 +167,53 @@ public class UserDaoJdbcImpl {
                 return true;
             }
             return false;
+        }catch (Exception e) {
+            throw new DaoException(e);
+        }finally{
+            DBConfig.release(conn, st, rs);
+        }
+    }
+
+    @Override
+    public User findbyID(int id) {
+        Connection conn = null;
+        PreparedStatement st = null;
+        ResultSet rs = null;
+        User user=new User();
+        try{
+            conn = DBConfig.getConnection();
+            String sql = "select * from user where id=?";
+            st = conn.prepareStatement(sql);
+            st.setInt(1, id);
+
+            rs = st.executeQuery();
+            if(rs.next()){
+                user.setId(rs.getInt("id"));
+                user.setNickname(rs.getString("nickname"));
+                user.setPassword(rs.getString("password"));
+                user.setPrivilege(rs.getString("privilege"));
+                return user;
+            }else
+            return null;
+        }catch (Exception e) {
+            throw new DaoException(e);
+        }finally{
+            DBConfig.release(conn, st, rs);
+        }
+    }
+
+    @Override
+    public void delete(int id) {
+        Connection conn = null;
+        PreparedStatement st = null;
+        ResultSet rs = null;
+        try{
+            conn = DBConfig.getConnection();
+            String sql = "delete from user where id=?";
+            st = conn.prepareStatement(sql);
+            st.setInt(1, id);
+            st.executeUpdate();
+
         }catch (Exception e) {
             throw new DaoException(e);
         }finally{

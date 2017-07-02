@@ -1,7 +1,9 @@
 package com.lab.service;
 
 import com.lab.Bean.Appointment;
+import com.lab.Bean.FreeAppointment;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -14,11 +16,21 @@ import java.util.List;
 public interface AppointmentService {
     void addAppointment(Appointment c);
 
-    void updateAppointment(Appointment c);
+    boolean IsAppointmentExist(Date day, String location, String period);
 
-    void deleteAppointment(int id);
+    boolean updateAppointment(Appointment c);
 
-    Appointment findAppointment(int id);
+    int CountAppointmentByLocation(String location);
+
+    void deleteAppointment(String id);
+
+    Appointment findAppointment(String id);
+
+    List<FreeAppointment> getAvailableAppointmentByDayandPeriod(Date day, String period);
+
+    List<FreeAppointment> getAvailableAppointmentByDayandLocation(Date day, String location);
+
+    List<Appointment> getAllAppointmentbyUser(String user);
 
     List<Appointment> getAllAppointment();
 }

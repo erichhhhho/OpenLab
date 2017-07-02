@@ -17,9 +17,16 @@ import javax.servlet.http.HttpServletResponse;
 
 import javax.servlet.http.HttpSession;
 import java.sql.Statement;
+import java.util.List;
+
 import com.lab.config.DBConfig;
 import com.lab.config.User;
+import com.lab.dao.UserDao;
+import com.lab.dao.impl.UserDaoJdbcImpl;
 import com.lab.security.Encrypter;
+import com.lab.service.AppointmentService;
+import com.lab.service.impl.AppointmentServiceImpl;
+import com.lab.util.Globals;
 
 
 @WebServlet(name="LoginServlet", value="/LoginServlet")
@@ -38,7 +45,7 @@ public class LoginServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
 
         HttpSession session = request.getSession();
-        Object o = session.getAttribute("userid");
+        Object o = session.getAttribute("user");
 
         if(o!=null&&o!=""){
             response.sendRedirect("Menu.jsp");
@@ -52,7 +59,7 @@ public class LoginServlet extends HttpServlet {
 
             if (name.equals("Enter Name")) {
                 request.setAttribute("msg", "用户名不能为空！");
-                request.getRequestDispatcher("/register.jsp").forward(request, response);
+                request.getRequestDispatcher("/").forward(request, response);
             }
             // 验证码
             String vocode1 = (String)request.getSession().getAttribute("vcode");
@@ -95,7 +102,31 @@ public class LoginServlet extends HttpServlet {
                         Cookie cookie2 = new Cookie("name", name);
                         response.addCookie(cookie);
                         response.addCookie(cookie2);
-                        response.sendRedirect("Menu.jsp");
+
+                        //添加全局变量
+                        session.setAttribute("locations", Globals.locations);
+                        session.setAttribute("periods", Globals.periods);
+
+                        int[] AppointmentByLocation=new int[Globals.locations.length];
+
+                        AppointmentService service=new AppointmentServiceImpl();
+                        UserDao userservice=new UserDaoJdbcImpl();
+
+                        if(user.getPrivilege().equals("manager")){
+                            List list=service.getAllAppointment();
+                            List userlist=userservice.getAll();
+                            session.setAttribute("list",list);
+                            session.setAttribute("UserList",userlist);
+
+                        }else{
+                        List list=service.getAllAppointmentbyUser(name);
+                        session.setAttribute("list",list);
+                        }
+                        for(int i=0;i<Globals.locations.length;i++){
+                            AppointmentByLocation[i]=service.CountAppointmentByLocation(Globals.locations[i]);
+                        }
+                        session.setAttribute("AppointmentByLocation",AppointmentByLocation);
+                        request.getRequestDispatcher("/Menu.jsp").forward(request, response);
                         return;
                     }else {
                         request.setAttribute("msg", "wrong password！");

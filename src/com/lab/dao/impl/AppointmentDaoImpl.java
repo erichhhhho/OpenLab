@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -28,7 +29,7 @@ public class AppointmentDaoImpl implements com.lab.dao.AppointmentDao {
             conn = DBConfig.getConnection();
             String sql = "insert into data(id,day,period,user,location) values(?,?,?,?,?)";
             st = conn.prepareStatement(sql);
-            st.setInt(1, c.getId());
+            st.setString(1, c.getId());
             st.setDate(2, new java.sql.Date(c.getDay().getTime()));
             st.setString(3, c.getPeriod());
             st.setString(4, c.getUser());
@@ -55,7 +56,7 @@ public class AppointmentDaoImpl implements com.lab.dao.AppointmentDao {
             st.setString(2, c.getPeriod());
             st.setString(3, c.getUser());
             st.setString(4, c.getLocation());
-            st.setInt(5, c.getId());
+            st.setString(5, c.getId());
             st.executeUpdate();
         }catch (Exception e) {
             throw new DaoException(e);
@@ -65,15 +66,15 @@ public class AppointmentDaoImpl implements com.lab.dao.AppointmentDao {
     }
 
     @Override
-    public void delete(int id){
+    public void delete(String id){
         Connection conn = null;
         PreparedStatement st = null;
         ResultSet rs = null;
         try{
             conn = DBConfig.getConnection();
-            String sql = "delete from customer where id=?";
+            String sql = "delete from data where id=?";
             st = conn.prepareStatement(sql);
-            st.setInt(1, id);
+            st.setString(1, id);
             st.executeUpdate();
         }catch (Exception e) {
             throw new DaoException(e);
@@ -82,8 +83,10 @@ public class AppointmentDaoImpl implements com.lab.dao.AppointmentDao {
         }
     }
 
+
+
     @Override
-    public Appointment find(int id){
+    public Appointment find(String id){
         Connection conn = null;
         PreparedStatement st = null;
         ResultSet rs = null;
@@ -91,15 +94,15 @@ public class AppointmentDaoImpl implements com.lab.dao.AppointmentDao {
             conn = DBConfig.getConnection();
             String sql = "select * from data where id=?";
             st = conn.prepareStatement(sql);
-            st.setInt(1, id);
+            st.setString(1, id);
             rs = st.executeQuery();
             if(rs.next()){
                 Appointment c = new Appointment();
-                c.setDay(rs.getDate("day"));
+                c.setDay(new Date(rs.getDate("day").getTime()));
                 c.setPeriod(rs.getString("period"));
                 c.setUser(rs.getString("user"));
                 c.setLocation(rs.getString("location"));
-                c.setId(rs.getInt("id"));
+                c.setId(rs.getString("id"));
 
                 return c;
             }
@@ -111,6 +114,146 @@ public class AppointmentDaoImpl implements com.lab.dao.AppointmentDao {
         }
     }
 
+    @Override
+    public List<Appointment> findbyname(String user){
+        Connection conn = null;
+        PreparedStatement st = null;
+        ResultSet rs = null;
+        try{
+            conn = DBConfig.getConnection();
+            String sql = "select * from data where user=?";
+            st = conn.prepareStatement(sql);
+            st.setString(1, user);
+            rs = st.executeQuery();
+            List list = new ArrayList();
+            while(rs.next()){
+                Appointment c = new Appointment();
+                c.setDay(rs.getDate("day"));
+                c.setPeriod(rs.getString("period"));
+                c.setUser(rs.getString("user"));
+                c.setLocation(rs.getString("location"));
+                c.setId(rs.getString("id"));
+                list.add(c);
+            }
+            return list;
+        }catch (Exception e) {
+            throw new DaoException(e);
+        }finally{
+            DBConfig.release(conn, st, rs);
+        }
+    }
+
+    @Override
+    public List<Appointment> findbylocation(String location){
+        Connection conn = null;
+        PreparedStatement st = null;
+        ResultSet rs = null;
+        try{
+            conn = DBConfig.getConnection();
+            String sql = "select * from data where location=?";
+            st = conn.prepareStatement(sql);
+            st.setString(1, location);
+            rs = st.executeQuery();
+            List list = new ArrayList();
+            while(rs.next()){
+                Appointment c = new Appointment();
+                c.setDay(rs.getDate("day"));
+                c.setPeriod(rs.getString("period"));
+                c.setUser(rs.getString("user"));
+                c.setLocation(rs.getString("location"));
+                c.setId(rs.getString("id"));
+                list.add(c);
+            }
+            return list;
+        }catch (Exception e) {
+            throw new DaoException(e);
+        }finally{
+            DBConfig.release(conn, st, rs);
+        }
+    }
+
+    @Override
+    public List<Appointment> findbyday(Date day){
+        Connection conn = null;
+        PreparedStatement st = null;
+        ResultSet rs = null;
+        try{
+            conn = DBConfig.getConnection();
+            String sql = "select * from data where day=?";
+            st = conn.prepareStatement(sql);
+            st.setDate(1, new java.sql.Date(day.getTime()));
+            rs = st.executeQuery();
+            List list = new ArrayList();
+            while(rs.next()){
+                Appointment c = new Appointment();
+                c.setDay(rs.getDate("day"));
+                c.setPeriod(rs.getString("period"));
+                c.setUser(rs.getString("user"));
+                c.setLocation(rs.getString("location"));
+                c.setId(rs.getString("id"));
+                list.add(c);
+            }
+            return list;
+        }catch (Exception e) {
+            throw new DaoException(e);
+        }finally{
+            DBConfig.release(conn, st, rs);
+        }
+    }
+
+    @Override
+    public List<Appointment> findbyDayandPeriod(Date day, String period){
+        Connection conn = null;
+        PreparedStatement st = null;
+        ResultSet rs = null;
+        try{
+            conn = DBConfig.getConnection();
+            String sql = "select * from data where day=? AND period=?";
+            st = conn.prepareStatement(sql);
+            st.setDate(1, new java.sql.Date(day.getTime()));
+            st.setString(2, period);
+            rs = st.executeQuery();
+            List list = new ArrayList();
+            while(rs.next()){
+                Appointment c = new Appointment();
+                c.setDay(rs.getDate("day"));
+                c.setPeriod(rs.getString("period"));
+                c.setUser(rs.getString("user"));
+                c.setLocation(rs.getString("location"));
+                c.setId(rs.getString("id"));
+                list.add(c);
+            }
+            return list;
+        }catch (Exception e) {
+            throw new DaoException(e);
+        }finally{
+            DBConfig.release(conn, st, rs);
+        }
+    }
+
+    @Override
+    public boolean IsAppointmentExist(Date day,String location,String period){
+        Connection conn = null;
+        PreparedStatement st = null;
+        ResultSet rs = null;
+        try{
+            conn = DBConfig.getConnection();
+            String sql = "select * from data where day=? AND location=? AND period =?";
+            st = conn.prepareStatement(sql);
+            st.setDate(1, new java.sql.Date(day.getTime()));
+            st.setString(2, location);
+            st.setString(3, period);
+            rs = st.executeQuery();
+            if (rs!=null && rs.next()) {
+                return true;
+            }else{
+            return false;}
+        }catch (Exception e) {
+            throw new DaoException(e);
+        }finally{
+            DBConfig.release(conn, st, rs);
+        }
+    }
 
     @Override
     public List<Appointment> getAll(){
@@ -119,7 +262,7 @@ public class AppointmentDaoImpl implements com.lab.dao.AppointmentDao {
         ResultSet rs = null;
         try{
             conn = DBConfig.getConnection();
-            String sql = "select * from customer";
+            String sql = "select * from data";
             st = conn.prepareStatement(sql);
             rs = st.executeQuery();
             List list = new ArrayList();
@@ -129,10 +272,35 @@ public class AppointmentDaoImpl implements com.lab.dao.AppointmentDao {
                 c.setPeriod(rs.getString("period"));
                 c.setUser(rs.getString("user"));
                 c.setLocation(rs.getString("location"));
-                c.setId(rs.getInt("id"));
+                c.setId(rs.getString("id"));
                 list.add(c);
             }
             return list;
+        }catch (Exception e) {
+            throw new DaoException(e);
+        }finally{
+            DBConfig.release(conn, st, rs);
+        }
+    }
+
+
+
+    @Override
+    public int CountAppointmentByLocation(String location){
+        Connection conn = null;
+        PreparedStatement st = null;
+        ResultSet rs = null;
+        int result=0;
+        try{
+            conn = DBConfig.getConnection();
+            String sql = "select count(*) from data where location=?";
+            st = conn.prepareStatement(sql);
+            st.setString(1,location);
+            rs = st.executeQuery();
+            while(rs.next()){
+                result=rs.getInt("count(*)");}
+            return result;
+
         }catch (Exception e) {
             throw new DaoException(e);
         }finally{

@@ -1,45 +1,47 @@
 package com.lab.servlet;
 
+import com.lab.config.User;
+import com.lab.dao.UserDao;
+import com.lab.dao.impl.UserDaoJdbcImpl;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 /**
  * @Project：${project_name}
  * @File：${type_name}
  * @Author：何唯 （Erichhhhho）
- * @Date：20:22 2017/6/29
+ * @Date：5:26 2017/7/2
  * @Description：
  */
-@WebServlet(name = "TestServlet",value = "/TestServlet")
-public class TestServlet extends HttpServlet {
+@WebServlet(name = "UserDeleteServlet",value = "/UserDeleteServlet")
+public class UserDeleteServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
-
-        PrintWriter out=response.getWriter();
-
-        String birthday ="2017-02-22";
-
-        SimpleDateFormat sdf = new SimpleDateFormat(("yyyy-MM-dd"));
-        java.util.Date date = null;
         try {
-            date = sdf.parse(request.getParameter("day"));
-        } catch (ParseException e) {
+
+
+            int id = Integer.parseInt(request.getParameter("id"));
+
+            UserDao service = new UserDaoJdbcImpl();
+            User user=service.findbyID(id);
+            service.delete(id);
+            request.setAttribute("msg","删除用户"+user.getNickname()+"成功！");
+
+            request.getRequestDispatcher("/Menu.jsp").forward(request, response);
+
+
+        }catch (Exception e)
+        {
+            request.setAttribute("msg","删除用户失败！");
             e.printStackTrace();
         }
-        System.out.println(new java.sql.Date(date.getTime()));
-        out.print(new java.sql.Date(date.getTime()));
-
-
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

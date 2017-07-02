@@ -1,21 +1,26 @@
 package com.lab.dao;
 
+import com.lab.config.User;
+
+import java.util.List;
+
 /**
  * @Project：${project_name}
  * @File：${type_name}
  * @Author：何唯 （Erichhhhho）
- * @Date：10:14 2017/7/1
+ * @Date：5:19 2017/7/2
  * @Description：
  */
-
-import com.lab.config.User;
-
 public interface UserDao {
-
     void add(User user);
 
-    User find(String username, String password);
+    User find(String nickname, String password);
 
-    //查找注册的用户是否在数据库中存在
-    boolean find(String username);
+    List<User> getAll();
+
+    boolean findbyNickname(String nickname);
+
+    User findbyID(int id);
+
+    void delete(int id);
 }
