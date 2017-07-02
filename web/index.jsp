@@ -33,11 +33,68 @@
         <p align="right">Please Login first</p>
       </div>
       <div class="col-md-4">
-        <p align="right"><a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+        <p align="right"><a class="btn btn-primary btn-lg" href="#" role="button" data-toggle="modal" data-target="#learnmore">Learn more</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
       </div>
     </div>
   </div>
 </div>
+
+
+
+
+  <!-- Modal -->
+  <div class="modal fade " id="learnmore" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel1">Contact us</h4>
+        </div>
+
+        <div class="modal-body">
+          <table>
+
+            <th align="center">小组成员姓名</th>
+            <th>&nbsp;</th>
+            <th align="center">学号</th>
+            <th>&nbsp;</th>
+            <th align="center">邮箱</th>
+
+            <tr align="center">
+              <td>何唯</td>
+              <td>&nbsp;</td>
+              <td>201430120308</td>
+              <td>&nbsp;</td>
+              <td>erichhhhho@hotmail.com</td>
+            </tr>
+            <tr  align="center">
+              <td>梁力臻</td>
+              <td>&nbsp;</td>
+              <td>201430120313</td>
+              <td>&nbsp;</td>
+              <td>xxxxx@hotmail.com</td>
+            </tr>
+            <tr  align="center">
+              <td>刘晓婷</td>
+              <td>&nbsp;</td>
+              <td>201430123018</td>
+              <td>&nbsp;</td>
+              <td>xxxxx@hotmail.com</td>
+            </tr>
+          </table>
+
+
+        </div>
+        <div class="modal-footer">
+
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
 
 <div class="alert alert-warning alert-dismissible .fade .in" role="alert" id="alertDiv">
   <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>

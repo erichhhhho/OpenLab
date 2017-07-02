@@ -27,23 +27,26 @@ public class UserModifyApServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
 
+        User currentuser= (User) request.getSession(false).getAttribute("user");
 
         try {
-
-
-
             String id = request.getParameter("id");
             String period=request.getParameter("period");
-            String user=request.getParameter("user");
             String location=request.getParameter("location");
             SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");//小写的mm表示的是分钟
             java.util.Date day=sdf.parse(request.getParameter("day"));
+            String user=null;
+            if(currentuser.getPrivilege().equals("manager")&&request.getParameter("user")!=null&&!request.getParameter("user").equals(""))
+            {
+                user=request.getParameter("user");
+            }else if(currentuser.getPrivilege().equals("teacher")||currentuser.getPrivilege().equals("student")){
+                user = currentuser.getNickname();
+            }else{
+                request.setAttribute("msg", "更改预约失败！用户名不能为空");
+            }
 
             if(day.before(new Date())) {
                 request.setAttribute("msg", "更改预约失败！预约时间早于当前时间");
-
-            }else if(user==null||user.equals("")){
-                request.setAttribute("msg", "更改预约失败！预约人姓名不能为空");
             }
             else
             {

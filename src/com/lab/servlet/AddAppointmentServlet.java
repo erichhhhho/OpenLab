@@ -26,16 +26,24 @@ import java.text.SimpleDateFormat;
 public class AddAppointmentServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-
-        if(request.getParameter("user").equals("")||request.getParameter("user")==null)
-        {
-            request.setAttribute("msg", "添加失败，User不能为空");
-            request.getRequestDispatcher("Menu.jsp").forward(request,response);
-            return;
-        }
-        try{
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
+        User user= (User) request.getSession().getAttribute("user");
+
+
+        if((user.getPrivilege().equals("manager")))
+        {
+            if(request.getParameter("user").equals("")||request.getParameter("user")==null)
+            {
+
+                request.setAttribute("msg", "添加失败，User不能为空");
+                request.getRequestDispatcher("Menu.jsp").forward(request,response);
+                return;
+            }
+
+        }
+        try{
+
 /*
         Appointment a=new Appointment();
         User user= (User) request.getSession().getAttribute("user");
@@ -51,7 +59,7 @@ public class AddAppointmentServlet extends HttpServlet {
 */
 
         Appointment a=WebUtils.request2Bean(request,Appointment.class);
-        User user= (User) request.getSession().getAttribute("user");
+
         a.setId(WebUtils.generateID());
         if(user.getPrivilege().equals("manager"))
                 a.setUser(request.getParameter("user"));

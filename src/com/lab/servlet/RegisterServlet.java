@@ -38,15 +38,18 @@ public class RegisterServlet extends HttpServlet {
         if (name.equals("Enter Name")) {
             request.setAttribute("msg", "用户名不能为空！");
             request.getRequestDispatcher("/register.jsp").forward(request, response);
+            return;
         }
         else if (!password1.equals(password2)) {
             request.setAttribute("msg", "密码不一致！");
             request.getRequestDispatcher("/register.jsp").forward(request, response);
+            return;
         }
         // 验证码
         else if (!vocode.equals(vocode1)) {
             request.setAttribute("msg", "验证码不正确！");
             request.getRequestDispatcher("/register.jsp").forward(request, response);
+            return;
         }
 
         // 检查是否有重名的用户
